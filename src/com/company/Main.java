@@ -1,6 +1,9 @@
 package com.company;
 
 import javax.swing.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.*;
 import java.util.*;
 
 class SCCKosaraju {
@@ -42,33 +45,50 @@ class SCCKosaraju {
         res.add(u);
     }
 
-    // Usage example
-    public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
+    static List<Integer>[] ReadFile() throws IOException {
 
-        List<Integer>[] g = new List[10];
+        FileReader fileReader = new FileReader("graf1.txt");
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+        String linia =  bufferedReader.readLine();
+
+        StringTokenizer stringTokenizer = new StringTokenizer(linia);
+        int numbOfVert = Integer.parseInt(stringTokenizer.nextToken());
+
+        List<Integer>[] g = new List[numbOfVert];
         for (int i = 0; i < g.length; i++)
             g[i] = new ArrayList<>();
 
-        g[0].add(2);
-        g[0].add(7);
-        g[1].add(0);
-        g[1].add(6);
-        g[2].add(3);
-        g[3].add(5);
-        g[4].add(0);
-        g[4].add(8);
-        g[5].add(9);
-        g[6].add(8);
-        g[7].add(5);
-        g[7].add(6);
-        g[8].add(7);
-        g[9].add(2);
+
+        for (int i=0; i<numbOfVert; ++i){
+            linia = bufferedReader.readLine();
+            char[] lineOfChar = linia.toCharArray();
+            //System.out.println(linia);
+            for (int j = 0; j < lineOfChar.length; j++){
+                if (lineOfChar[j] == 49){
+                    g[i].add(j);
+                    System.out.print(i + " - index i, "  + j + " - index j\n" );
+                }
+
+            }
+        }
+        return g;
+
+    }
+
+    // Usage example
+    public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException, IOException {
+
+
+
+        //StrongConnectedComponents gui = new StrongConnectedComponents();
+        //gui.setVisible(true);
+
+
+        List<Integer>[] g = ReadFile();
 
         List<List<Integer>> components = scc(g);
         System.out.println(components);
-
-        StrongConnectedComponents gui = new StrongConnectedComponents();
-        gui.setVisible(true);
 
     }
 }

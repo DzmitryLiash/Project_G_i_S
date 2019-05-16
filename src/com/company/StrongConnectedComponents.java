@@ -7,6 +7,7 @@ public class StrongConnectedComponents extends JFrame {
     private JButton wczytajButton;
     private JButton obliczButton;
     private JButton wyczyśćButton;
+    private JTextPane textPane1;
     private JTextPane rootPanel;
 
     public StrongConnectedComponents() throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
